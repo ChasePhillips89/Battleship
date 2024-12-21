@@ -56,6 +56,10 @@ RSpec.describe Cell do
         end
 
         it 'renders a hit' do
+            @cell_2.place_ship(@cruiser)
+
+            expect(@cell_2.render).to eq(".")
+        end
     end
 
 
