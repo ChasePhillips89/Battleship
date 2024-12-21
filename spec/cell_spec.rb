@@ -54,6 +54,8 @@ RSpec.describe Cell do
             expect(@cell_1.render).to eq("M")
 
         end
+
+        it 'renders a hit' do
     end
 
 
