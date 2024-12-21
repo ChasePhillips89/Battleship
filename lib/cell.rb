@@ -27,7 +27,9 @@ class Cell
         
     end
 
-    def render
+    def render(show_ship = false)
+        
+        return "S" if show_ship && @ship
         return "M" if @fired && @ship.nil? 
         return "H" if @fired && @ship      
          "."
