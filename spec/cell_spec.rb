@@ -55,7 +55,45 @@ RSpec.describe Cell do
 
         end
 
+        it 'renders a cell not fired upon' do
+            @cell_2.place_ship(@cruiser)
+
+            expect(@cell_2.render).to eq(".")
+        end
+
+        it 'renders if there is a ship placed' do
+
+            @cell_2.place_ship(@cruiser)
+            
+            expect(@cell_2.render(true)).to eq("S")
+
+
+        end
+
         it 'renders a hit' do
+
+            @cell_2.place_ship(@cruiser)
+
+            @cell_2.fire_upon
+
+            expect(@cell_2.render).to eq("H")
+
+        end
+
+        it 'hits ship until sunk' do
+            @cell_2.place_ship(@cruiser)
+
+            @cell_2.fire_upon
+
+            expect(@cruiser.sunk?).to eq(false)
+
+            @cruiser.hit
+            @cruiser.hit
+
+            expect(@cruiser.sunk?).to eq(true)
+            expect(@cell_2.render).to eq("X")
+
+        end
     end
 
 
