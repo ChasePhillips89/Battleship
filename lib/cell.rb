@@ -29,9 +29,10 @@ class Cell
 
     def render(show_ship = false)
         
+        return "X" if @ship && @ship.sunk?
         return "S" if show_ship && @ship
         return "M" if @fired && @ship.nil? 
-        return "H" if @fired && @ship      
+        return "H" if @fired && @ship
          "."
             
         
