@@ -5,6 +5,8 @@ class Cell
         @coordinate = coordinate
         @ship = nil
         @fired = false
+        
+        
     end
 
     def empty?
@@ -21,9 +23,17 @@ class Cell
 
     def fire_upon
         @fired = true
-        @ship.hit 
-            if @ship
-        end
+        @ship.hit if @ship
+        
+    end
+
+    def render
+        return "M" if @fired && @ship.nil? 
+        return "H" if @fired && @ship      
+         "."
+            
+        
+
     end
 end
 
