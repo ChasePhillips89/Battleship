@@ -25,7 +25,7 @@ RSpec.describe Board do
         it "checks on cell coordinates" do
             
             expect(@board.valid_coordinate?("A1")).to eq(true)
-            expect(@board.valid_coordinate?("D4`")).to eq(true)
+            expect(@board.valid_coordinate?("D4")).to eq(true)
             expect(@board.valid_coordinate?("A5")).to eq(false)
             expect(@board.valid_coordinate?("E1")).to eq(false)
             expect(@board.valid_coordinate?("A22")).to eq(false)
@@ -62,15 +62,13 @@ RSpec.describe Board do
 
         it 'has valid placement' do
           expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A3"])).to eq(true)
+          expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
+          
 
         end
 
         it 'has ship?' do
 
         end
-
-
-
-
     end
 end
