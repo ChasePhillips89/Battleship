@@ -1,7 +1,7 @@
 class Board
-    attr_reader :cells
+    attr_reader :cells 
 
-    def initalize
+    def initialize
         @cells = {
             "A1" => Cell.new("A1"),
             "A2" => Cell.new("A2"),
@@ -20,9 +20,5 @@ class Board
             "D3" => Cell.new("D3"),
             "D4" => Cell.new("D4")
         }
-    end
-
-    def keys
-        @cells.key
     end
 end
