@@ -26,4 +26,23 @@ class Board
         @cells.key?(coordinate)
     end 
 
+    def valid_placement?(ship,coordinates)
+        valid_length = coordinates.length == ship.length
+        valid_coordinates = coordinates.all? { |coordinate| @cells.key?(coordinate) }
+        valid_alignment = horizontal?(coordinates) || vertical?(coordinates)
+        no_ship_placed = coordinates.all? { |coordinate| @cells[coordinate].empty? }
+
+        valid_length && valid_coordinates && valid_orientation && valid_empty
+
+    end
+
+    def horizontal?(coordinates)
+        coordinates.all? { |coord| coord[0] == coordinates.first[0] }
+    end
+
+    def vertical?(coordinates)
+        coordinates.all? { |coord| coord[1] == coordinates.first[1] }
+    end
+    
+
 end
