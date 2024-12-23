@@ -62,7 +62,6 @@ RSpec.describe Cell do
         end
 
         it 'renders if there is a ship placed' do
-
             @cell_2.place_ship(@cruiser)
             
             expect(@cell_2.render(true)).to eq("S")
@@ -71,9 +70,7 @@ RSpec.describe Cell do
         end
 
         it 'renders a hit' do
-
             @cell_2.place_ship(@cruiser)
-
             @cell_2.fire_upon
 
             expect(@cell_2.render).to eq("H")
@@ -82,7 +79,6 @@ RSpec.describe Cell do
 
         it 'hits ship until sunk' do
             @cell_2.place_ship(@cruiser)
-
             @cell_2.fire_upon
 
             expect(@cruiser.sunk?).to eq(false)
@@ -95,6 +91,4 @@ RSpec.describe Cell do
 
         end
     end
-
-
 end
