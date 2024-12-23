@@ -51,6 +51,14 @@ class Board
         end
     end
 
+    def consecutive_numbers?(coordinates)
+        coordinates.each_cons(2).all? do |coordinate|
+            coordinate[0].slice(1).to_i + 1 == coordinate[1].slice(1).to_i
+    
+            
+        end
+    end
+
 
 
 

@@ -52,6 +52,11 @@ RSpec.describe Board do
 
         it 'has consecutive letters' do
           expect(@board.consecutive_letters?(["A1", "B1", "C1"])).to eq(true)
+          expect(@board.consecutive_letters?(["A1", "B1", "A2"])).to eq(false)
+        end
+
+        it 'has consecutive numbers' do
+          expect(@board.consecutive_numbers?(["A1", "A2", "A3"])).to eq(true)
         end
 
 
