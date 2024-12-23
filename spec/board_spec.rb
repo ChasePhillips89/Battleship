@@ -1,10 +1,13 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require 'pry'
 
 RSpec.describe Board do 
     before (:each) do 
         @board = Board.new
+        @cruiser = Ship.new("Cruiser", 3)
+        @submarine = Ship.new("Submarine", 2)
     end
 
     describe '#initialize' do 
@@ -29,4 +32,43 @@ RSpec.describe Board do
         end
     end
 
+    describe "#ship_placements" do
+        it 'has coordinates that match ship length' do
+
+          expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to eq(false)
+          expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+
+        end
+
+        it 'has same letters' do
+          expect(@board.same_letters?(["A1", "A2", "A3"])).to eq(true)
+          expect(@board.same_letters?(["A1", "B2", "B3"])).to eq(false)
+        end
+
+        it 'has the same numbers' do
+          expect(@board.same_numbers?(["A1", "B1", "C1"])).to eq(true)
+          expect(@board.same_numbers?(["A1", "B2", "C1"])).to eq(false)
+        end
+
+        it 'has consecutive letters' do
+          expect(@board.consecutive_letters?(["A1", "B1", "C1"])).to eq(true)
+          expect(@board.consecutive_letters?(["A1", "B1", "A2"])).to eq(false)
+        end
+
+        it 'has consecutive numbers' do
+          expect(@board.consecutive_numbers?(["A1", "A2", "A3"])).to eq(true)
+          expect(@board.consecutive_numbers?(["A1", "A4", "A3"])).to eq(false)
+        end
+
+        it 'has valid placement' do
+          expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A3"])).to eq(true)
+          expect(@board.valid_placement?(@cruiser, ["A1", "B2", "C3"])).to eq(false)
+          
+
+        end
+
+        it 'has ship?' do
+
+        end
+    end
 end
