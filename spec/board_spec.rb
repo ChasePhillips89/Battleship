@@ -1,6 +1,7 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require 'pry'
 
 RSpec.describe Board do 
     before (:each) do 
@@ -38,6 +39,23 @@ RSpec.describe Board do
           expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
 
         end
-    end
 
+        it 'has same letters' do
+          expect(@board.same_letters?(["A1", "A2", "A3"])).to eq(true)
+          expect(@board.same_letters?(["A1", "B2", "B3"])).to eq(false)
+        end
+
+        it 'has the same numbers' do
+          expect(@board.same_numbers?(["A1", "B1", "C1"])).to eq(true)
+          expect(@board.same_numbers?(["A1", "B2", "C1"])).to eq(false)
+        end
+
+        it 'has consecutive letters' do
+          expect(@board.consecutive_letters?(["A1", "B1", "C1"])).to eq(true)
+        end
+
+
+
+
+    end
 end

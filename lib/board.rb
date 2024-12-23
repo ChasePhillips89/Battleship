@@ -28,21 +28,32 @@ class Board
 
     def valid_placement?(ship,coordinates)
         valid_length = coordinates.length == ship.length
-        valid_coordinates = coordinates.all? { |coordinate| @cells.key?(coordinate) }
-        valid_alignment = horizontal?(coordinates) || vertical?(coordinates)
-        no_ship_placed = coordinates.all? { |coordinate| @cells[coordinate].empty? }
-
-        valid_length && valid_coordinates && valid_orientation && valid_empty
-
     end
 
-    def horizontal?(coordinates)
-        coordinates.all? { |coord| coord[0] == coordinates.first[0] }
+    def same_letters?(coordinates)
+        coordinates.each_cons(2).all? do |coordinate|
+            coordinate[0].ord == coordinate[1].ord
+           
+        end
+        
     end
 
-    def vertical?(coordinates)
-        coordinates.all? { |coord| coord[1] == coordinates.first[1] }
+    def same_numbers?(coordinates)
+        coordinates.each_cons(2).all? do |coordinate|
+            coordinate[0].slice(1) == coordinate[1].slice(1)
+            
+        end
     end
+
+    def consecutive_letters?(coordinates)
+        coordinates.each_cons(2).all? do |coordinate|
+            coordinate[0].ord + 1 == coordinate[1].ord
+        end
+    end
+
+
+
+
     
 
 end
