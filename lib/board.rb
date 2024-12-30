@@ -37,22 +37,18 @@ class Board
             valid_length && valid_coordinates?(coordinates) && coordinates_empty?(coordinates)
             true
         else false
-        
         end
     end
 
     def same_letters?(coordinates)
         coordinates.each_cons(2).all? do |coordinate|
             coordinate[0].ord == coordinate[1].ord
-           
         end
-        
     end
 
     def same_numbers?(coordinates)
         coordinates.each_cons(2).all? do |coordinate|
             coordinate[0].slice(1) == coordinate[1].slice(1)
-            
         end
     end
 
@@ -65,8 +61,6 @@ class Board
     def consecutive_numbers?(coordinates)
         coordinates.each_cons(2).all? do |coordinate|
             coordinate[0].slice(1).to_i + 1 == coordinate[1].slice(1).to_i
-    
-            
         end
     end
 
@@ -80,7 +74,12 @@ class Board
         end
     end
 
-
-    
+    def place(ship, coordinates)
+        coordinates.each do |coordinate|
+            if valid_placement?(ship,coordinates) && @cells[coordinate].empty?
+                @cells[coordinate].place_ship(ship)
+            end
+        end
+    end
 
 end
