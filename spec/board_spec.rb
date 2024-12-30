@@ -66,9 +66,5 @@ RSpec.describe Board do
           
 
         end
-
-        it 'has ship?' do
-
-        end
     end
 end

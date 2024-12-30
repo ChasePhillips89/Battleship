@@ -81,8 +81,6 @@ class Board
     end
 
 
-
-
     
 
 end
