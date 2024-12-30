@@ -78,7 +78,21 @@ RSpec.describe Board do
             expect(cell_2.ship == cell_1.ship).to eq(true)
             expect(cell_1.ship == cell_3.ship).to eq(true)
         end
+
+        it 'makes sure you cannot place two ships at the same corrdinates' do
+            @board.place(@cruiser, ["A1", "A2", "A3"])  
+
+            expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
+        end
     end
 
+    describe "#rendering_the_board" do
+        it 'renders the board for the user' do
+            @board.place(@cruiser, ["A1", "A2", "A3"]) 
+            @board.render
+
+            expect(@board.render).to eq(true)
+        end
+    end
 
 end
