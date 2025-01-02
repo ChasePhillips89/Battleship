@@ -6,7 +6,7 @@ class Cell
         @ship = nil
         @fired = false
         
-        
+
     end
 
     def empty?
