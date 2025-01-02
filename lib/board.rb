@@ -81,4 +81,23 @@ class Board
             end 
         end 
     end
+
+    def board_render(show_ship = false)
+        output = ["  1 2 3 4 \n"]
+        row_1 = [@cells["A1"], @cells["A2"], @cells["A3"], @cells["A4"]]
+        row_2 = [@cells["B1"], @cells["B2"], @cells["B3"], @cells["B4"]]
+        row_3 = [@cells["C1"], @cells["C2"], @cells["C3"], @cells["C4"]]
+        row_4 = [@cells["D1"], @cells["D2"], @cells["D3"], @cells["D4"]]
+
+        rows = [row_1, row_2, row_3, row_4]
+        rows.each do |row|
+            row_output = [row[0].coordinate[0]]
+            row_output << row.map do |cell|
+                cell.render(show_ship)
+            end
+            row_output << "\n"
+            output << row_output.join(" ") 
+        end
+        output.join
+    end
 end

@@ -89,10 +89,52 @@ RSpec.describe Board do
     describe "#rendering_the_board" do
         it 'renders the board for the user' do
             @board.place(@cruiser, ["A1", "A2", "A3"]) 
-            @board.render
+            @board.board_render
 
-            expect(@board.render).to eq(true)
+            expect(@board.board_render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+            expect(@board.board_render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")  
+        end
+
+        it 'renders a hit' do
+            cell_1 = @board.cells["A1"]
+            cell_2 = @board.cells["A2"]
+            cell_3 = @board.cells["A3"]    
+            
+            @board.place(@cruiser, ["A1", "A2", "A3"]) 
+            @board.board_render
+
+            cell_1.fire_upon
+
+            expect(@board.board_render(true)).to eq("  1 2 3 4 \nA H S S . \nB . . . . \nC . . . . \nD . . . . \n")
+        end
+
+        it 'renders a miss' do
+            cell_1 = @board.cells["A1"]
+            cell_2 = @board.cells["A2"]
+            cell_3 = @board.cells["A3"]   
+            cell_4 = @board.cells["B1"] 
+            
+            @board.place(@cruiser, ["A1", "A2", "A3"]) 
+            @board.board_render
+
+            cell_4.fire_upon
+
+            expect(@board.board_render(true)).to eq("  1 2 3 4 \nA S S S . \nB M . . . \nC . . . . \nD . . . . \n")
+        end
+
+        it 'renders a ship sunk' do 
+            cell_1 = @board.cells["A1"]
+            cell_2 = @board.cells["A2"]
+            cell_3 = @board.cells["A3"]   
+            
+            @board.place(@cruiser, ["A1", "A2", "A3"]) 
+            @board.board_render
+
+            cell_1.fire_upon
+            cell_2.fire_upon
+            cell_3.fire_upon
+
+            expect(@board.board_render(true)).to eq("  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n")
         end
     end
-
 end
