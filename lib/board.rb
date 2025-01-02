@@ -37,22 +37,18 @@ class Board
             valid_length && valid_coordinates?(coordinates) && coordinates_empty?(coordinates)
             true
         else false
-        
         end
     end
 
     def same_letters?(coordinates)
         coordinates.each_cons(2).all? do |coordinate|
             coordinate[0].ord == coordinate[1].ord
-           
         end
-        
     end
 
     def same_numbers?(coordinates)
         coordinates.each_cons(2).all? do |coordinate|
             coordinate[0].slice(1) == coordinate[1].slice(1)
-            
         end
     end
 
@@ -65,8 +61,6 @@ class Board
     def consecutive_numbers?(coordinates)
         coordinates.each_cons(2).all? do |coordinate|
             coordinate[0].slice(1).to_i + 1 == coordinate[1].slice(1).to_i
-    
-            
         end
     end
 
@@ -80,7 +74,30 @@ class Board
         end
     end
 
+    def place(ship, coordinates) 
+        if valid_placement?(ship, coordinates) 
+            coordinates.each do |coordinate| 
+                @cells[coordinate].place_ship(ship) 
+            end 
+        end 
+    end
 
-    
+    def board_render(show_ship = false)
+        output = ["  1 2 3 4 \n"]
+        row_1 = [@cells["A1"], @cells["A2"], @cells["A3"], @cells["A4"]]
+        row_2 = [@cells["B1"], @cells["B2"], @cells["B3"], @cells["B4"]]
+        row_3 = [@cells["C1"], @cells["C2"], @cells["C3"], @cells["C4"]]
+        row_4 = [@cells["D1"], @cells["D2"], @cells["D3"], @cells["D4"]]
 
+        rows = [row_1, row_2, row_3, row_4]
+        rows.each do |row|
+            row_output = [row[0].coordinate[0]]
+            row_output << row.map do |cell|
+                cell.render(show_ship)
+            end
+            row_output << "\n"
+            output << row_output.join(" ") 
+        end
+        output.join
+    end
 end
