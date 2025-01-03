@@ -6,6 +6,10 @@ require 'pry'
 class Game 
   attr_reader :cpu_board, 
               :user_board, 
+              :cpu_cruiser, 
+              :cpu_submarine, 
+              :user_cruiser,
+              :user_submarine
   
   def initialize 
     @cpu_cruiser = Ship.new("Cruiser", 3)
@@ -24,10 +28,12 @@ class Game
 
   def start_game
       main_menu
-      cpu_cruiser_placement
-      cpu_submarine_placement
-    # cpu ship placement
-    # player ship placement
+      cpu_placement(@cpu_cruiser)
+      cpu_placement(@cpu_submarine) 
+      placement_explanation
+
+    # player cruiser placement
+    # player submarine placement
     # game explination
     # display board
     # player guess
@@ -39,6 +45,7 @@ class Game
     # End game
   end
     
+  # Helper_Methods
   def main_menu
     puts ""
     puts ""
@@ -58,12 +65,23 @@ class Game
     end
   end
 
-  def cpu_cruiser_placement
-
+  def cpu_placement(ship)
+    random_coords = []
+    until @cpu_board.valid_placement?(ship, random_coords) do
+      random_coords = @cpu_board.cells.keys.sample(ship.length)
+    end
+    @cpu_board.place(@cpu_cruiser, random_coords)
   end
 
-  def cpu_submarine_placement
-  end
-    
+  def placement_explanation
+    puts ""
+    puts ""
+    puts ""
+    puts "I have laid out my ships on the grid.
+          You now need to lay out your two ships.
+          The Cruiser is three units long and the Submarine is two units long."
+    puts @user_board.board_render
+    puts "Please enter the coordinates for your Cruiser"
+  end 
+
 end
-

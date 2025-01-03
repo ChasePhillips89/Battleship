@@ -90,6 +90,7 @@ class Board
         row_4 = [@cells["D1"], @cells["D2"], @cells["D3"], @cells["D4"]]
 
         rows = [row_1, row_2, row_3, row_4]
+        
         rows.each do |row|
             row_output = [row[0].coordinate[0]]
             row_output << row.map do |cell|
