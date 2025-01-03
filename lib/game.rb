@@ -70,7 +70,7 @@ class Game
     until @cpu_board.valid_placement?(ship, random_coords) do
       random_coords = @cpu_board.cells.keys.sample(ship.length)
     end
-    @cpu_board.place(@cpu_cruiser, random_coords)
+    @cpu_board.place(ship, random_coords)
   end
 
   def placement_explanation
