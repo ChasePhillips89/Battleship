@@ -31,6 +31,10 @@ class Game
       cpu_placement(@cpu_cruiser)
       cpu_placement(@cpu_submarine) 
       placement_explanation
+      user_cruiser_placement(@user_cruiser)
+      second_ship_placement
+      user_submarine_placement(@user_submarine)
+      
 
     # player cruiser placement
     # player submarine placement
@@ -83,5 +87,36 @@ class Game
     puts @user_board.board_render
     puts "Please enter the coordinates for your Cruiser"
   end 
+ 
+  def user_cruiser_placement(ship)
+    user_input = gets.chomp
+    user_coords = user_input.split 
+  
+    if @user_board.valid_placement?(ship, user_coords)
+      @user_board.place(ship, user_coords)
+      puts "Successfully placed your #{ship.name}!"
+      puts @user_board.board_render(true)
+    else
+      puts "Invalid placement. Please try again."
+      user_cruiser_placement(ship) 
+    end
+  end
 
+  def second_ship_placement
+    puts "Now choose the coordinates and place your Submarine!"
+  end
+
+  def user_submarine_placement(ship)
+    user_input = gets.chomp
+    user_coords = user_input.split 
+  
+    if @user_board.valid_placement?(ship, user_coords)
+      @user_board.place(ship, user_coords)
+      puts "Successfully placed your #{ship.name}!"
+      puts @user_board.board_render(true)
+    else
+      puts "Invalid placement. Please try again."
+      user_cruiser_placement(ship) 
+    end
+  end
 end

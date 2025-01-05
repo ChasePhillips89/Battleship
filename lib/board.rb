@@ -27,7 +27,7 @@ class Board
         @cells.key?(coordinate)
     end 
 
-    def valid_placement?(ship,coordinates)
+    def valid_placement?(ship, coordinates)
         valid_length = coordinates.length == ship.length
         
         if same_letters?(coordinates) && consecutive_numbers?(coordinates) && 
