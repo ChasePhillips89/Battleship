@@ -56,6 +56,15 @@ class Game
     end
   end
 
+  def setup_game
+    @cpu_board = Board.new
+    @user_board = Board.new
+    @cpu_cruiser = Ship.new("Cruiser", 3)
+    @cpu_submarine = Ship.new("Submarine", 2)
+    @user_cruiser = Ship.new("Cruiser", 3)
+    @user_submarine = Ship.new("Submarine", 2)
+  end
+
   def cpu_placement(ship)
     random_coords = []
     until @cpu_board.valid_placement?(ship, random_coords) do
@@ -71,6 +80,7 @@ class Game
     puts "I have laid out my ships on the grid.
           You now need to lay out your two ships.
           The Cruiser is three units long and the Submarine is two units long."
+          puts "========PLAYER BOARD========"
     puts @user_board.board_render
     puts "Please enter the coordinates for your Cruiser"
   end 
@@ -82,6 +92,7 @@ class Game
     if @user_board.valid_placement?(ship, user_coords)
       @user_board.place(ship, user_coords)
       puts "Successfully placed your #{ship.name}!"
+      puts "========PLAYER BOARD========"
       puts @user_board.board_render(true)
     else
       puts "Invalid placement. Please try again."
@@ -100,6 +111,7 @@ class Game
     if @user_board.valid_placement?(ship, user_coords)
       @user_board.place(ship, user_coords)
       puts "Successfully placed your #{ship.name}!"
+      puts "========PLAYER BOARD========"
       puts @user_board.board_render(true)
     else
       puts "Invalid placement. Please try again."
@@ -111,6 +123,7 @@ class Game
     puts ""
     puts ""
     puts ""
+    puts "========PLAYER BOARD========"
     puts @user_board.board_render(true)
     puts ""
     puts ""
@@ -118,6 +131,7 @@ class Game
     select a coordinate to fire upon!"
     puts ""
     puts ""
+    puts "========COMPUTER BOARD========"
     puts @cpu_board.board_render
   end
 
@@ -164,7 +178,9 @@ class Game
     end
 
     def turn_results
+      puts "========PLAYER BOARD========"
       puts @user_board.board_render(true)
+      puts "========COMPUTER BOARD========"
       puts @cpu_board.board_render
     end
 
@@ -180,7 +196,9 @@ class Game
       end
      
       if @cpu_board.all_ships_sunk?
+        puts "========PLAYER BOARD========"
         puts @user_board.board_render
+        puts "========COMPUTER BOARD========"
         puts @cpu_board.board_render
         puts "Congratulations! You have won the game!"
       else
@@ -210,29 +228,4 @@ class Game
       end
     end
   end
-
-  def setup_game
-    @cpu_board = Board.new
-    @user_board = Board.new
-    @cpu_cruiser = Ship.new("Cruiser", 3)
-    @cpu_submarine = Ship.new("Submarine", 2)
-    @user_cruiser = Ship.new("Cruiser", 3)
-    @user_submarine = Ship.new("Submarine", 2)
-  end
 end 
-  
-  
-  
-  
-  # puts "Would you like to challenge the CPU again? (Yes/No)"
-  #   gets.chomp.upcase
-  # end
-    
-  # def game_reset
-  #   loop do 
-  #     start_game
-  #     response = want_to_continue?
-  #     break unless response = "Yes"
-  #   end
-  # end  
-
