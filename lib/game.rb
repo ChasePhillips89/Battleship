@@ -35,15 +35,15 @@ class Game
       second_ship_placement
       user_submarine_placement(@user_submarine)
       user_turn_explanation
-      user_fires
+      game_loop
+      # user_fires
+      # cpu_fires
+      # turn_results
       
 
     
-    # player guess
-      # report results
-    # cpu guess
-      # report results
-    # display boards
+   
+    
     # check if there is a winner
     # End game
   end
@@ -54,11 +54,11 @@ class Game
     puts ""
     puts ""
     puts "Welcome to BATTLESHIP
-      Enter p to play. Enter q to quit."
+      Enter P to play. Enter Q to quit."
     puts ""
     puts ""
 
-    user_input = gets.chomp
+    user_input = gets.chomp.upcase
     if user_input == "p"
       puts "Let's Begin!"
     elsif user_input == "q"
@@ -88,7 +88,7 @@ class Game
   end 
  
   def user_cruiser_placement(ship)
-    user_input = gets.chomp
+    user_input = gets.chomp.upcase
     user_coords = user_input.split 
   
     if @user_board.valid_placement?(ship, user_coords)
@@ -106,7 +106,7 @@ class Game
   end
 
   def user_submarine_placement(ship)
-    user_input = gets.chomp
+    user_input = gets.chomp.upcase
     user_coords = user_input.split 
   
     if @user_board.valid_placement?(ship, user_coords)
@@ -162,5 +162,61 @@ class Game
       end
 
     end
+
+    def cpu_fires
+
+      available_cells = @user_board.cells.keys.select do |coordinate|
+        !@user_board.cells[coordinate].fired_upon? 
+      end
+    
+      
+      target_coordinate = available_cells.sample
+      target_cell = @user_board.cells[target_coordinate]
+    
+      target_cell.fire_upon
+    
+     if target_cell.ship
+        if target_cell.ship.sunk?
+          puts "CPU fires at #{target_coordinate} and sinks your #{target_cell.ship.name}!"
+        else
+          puts "CPU fires at #{target_coordinate} and hits your ship!"
+        end
+      else
+        puts "CPU fires at #{target_coordinate} and misses."
+      end
+    
+    end
+
+    def turn_results
+      puts @user_board.board_render(true)
+      puts @cpu_board.board_render
+    end
+
+    def game_loop
+      until game_over?
+        user_fires
+        break if game_over? 
+    
+        cpu_fires
+        break if game_over? 
+    
+        turn_results
+      end
+    
+     
+      if @cpu_board.all_ships_sunk?
+        puts @user_board.board_render
+        puts @cpu_board.board_render
+        puts "Congratulations! You have won the game!"
+      else
+        puts "Game over! The CPU has won!"
+      end
+    end
+    
+   
+    def game_over?
+      @cpu_board.all_ships_sunk? || @user_board.all_ships_sunk?
+    end
+    
   
 end

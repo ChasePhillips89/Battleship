@@ -101,4 +101,8 @@ class Board
         end
         output.join
     end
+
+    def all_ships_sunk?
+        @cells.values.all? { |cell| cell.ship.nil? || cell.ship.sunk? }
+      end
 end
