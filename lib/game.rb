@@ -34,12 +34,11 @@ class Game
       user_cruiser_placement(@user_cruiser)
       second_ship_placement
       user_submarine_placement(@user_submarine)
+      user_turn_explanation
+      user_fires
       
 
-    # player cruiser placement
-    # player submarine placement
-    # game explination
-    # display board
+    
     # player guess
       # report results
     # cpu guess
@@ -119,4 +118,49 @@ class Game
       user_cruiser_placement(ship) 
     end
   end
+
+  def user_turn_explanation
+    puts ""
+    puts ""
+    puts ""
+    puts @user_board.board_render(true)
+    puts ""
+    puts ""
+    puts "Here is the current lay of the land,
+    select a coordinate to fire upon!"
+    puts ""
+    puts ""
+    puts @cpu_board.board_render
+    
+  end
+
+  def user_fires
+    
+    target_coordinate = gets.chomp.upcase
+
+  
+    if @cpu_board.cells.key?(target_coordinate) && !@cpu_board.cells[target_coordinate].fired_upon?
+      target_cell = @cpu_board.cells[target_coordinate]
+
+      
+      target_cell.fire_upon
+
+    
+        if target_cell.ship
+        if target_cell.ship.sunk?
+          puts "You fired at #{target_coordinate} and sunk the CPU's #{target_cell.ship.name}!"
+        else
+          puts "You fired at #{target_coordinate} and hit a ship!"
+        end
+      else
+        puts "You fired at #{target_coordinate} and missed."
+      end
+      else
+    
+      puts "Invalid coordinate or the cell has already been fired upon. Try again."
+      user_fires
+      end
+
+    end
+  
 end
