@@ -48,11 +48,11 @@ class Game
 
     user_input = gets.chomp.upcase
     if user_input == "p"
-      puts "Let's Begin!"
+      puts "Captains, to your BATTLE STATIONS!"
     elsif user_input == "q"
       puts "Later Loser!"
     else
-      puts "Mind your 'p's and 'q's...please enter 'p' or 'q'"
+      puts "Mind your P's and Q's...please enter 'P' or 'Q'"
     end
   end
 
@@ -80,7 +80,9 @@ class Game
     puts "I have laid out my ships on the grid.
           You now need to lay out your two ships.
           The Cruiser is three units long and the Submarine is two units long."
+          puts ""
           puts "========PLAYER BOARD========"
+          puts ""
     puts @user_board.board_render
     puts "Please enter the coordinates for your Cruiser"
   end 
@@ -92,10 +94,12 @@ class Game
     if @user_board.valid_placement?(ship, user_coords)
       @user_board.place(ship, user_coords)
       puts "Successfully placed your #{ship.name}!"
+      puts ""
       puts "========PLAYER BOARD========"
+      puts ""
       puts @user_board.board_render(true)
     else
-      puts "Invalid placement. Please try again."
+      puts "You're lost at sea, try placing your ship in charted waters!"
       user_cruiser_placement(ship) 
     end
   end
@@ -111,10 +115,12 @@ class Game
     if @user_board.valid_placement?(ship, user_coords)
       @user_board.place(ship, user_coords)
       puts "Successfully placed your #{ship.name}!"
+      puts ""
       puts "========PLAYER BOARD========"
+      puts ""
       puts @user_board.board_render(true)
     else
-      puts "Invalid placement. Please try again."
+      puts "You're lost at sea, try placing your ship in charted waters!"
       user_cruiser_placement(ship) 
     end
   end
@@ -124,14 +130,16 @@ class Game
     puts ""
     puts ""
     puts "========PLAYER BOARD========"
+    puts ""
     puts @user_board.board_render(true)
     puts ""
     puts ""
     puts "Here is the current lay of the land,
-    select a coordinate to fire upon!"
+    select a specifc coordinate to fire upon. I'm WAITING!"
     puts ""
     puts ""
     puts "========COMPUTER BOARD========"
+    puts ""
     puts @cpu_board.board_render
   end
 
@@ -144,15 +152,16 @@ class Game
       target_cell.fire_upon
       if target_cell.ship
         if target_cell.ship.sunk?
-          puts "You fired at #{target_coordinate} and sunk the CPU's #{target_cell.ship.name}!"
+          puts "You fired at #{target_coordinate} and sunk my #{target_cell.ship.name}!"
         else
-          puts "You fired at #{target_coordinate} and hit a ship!"
+          puts "You fired at #{target_coordinate} and hit my ship!"
         end
       else
-        puts "You fired at #{target_coordinate} and missed."
+        puts "You fired at #{target_coordinate} and missed, unless you were aiming for fish."
         end
       else
-      puts "Invalid coordinate or the cell has already been fired upon. Try again."
+      puts "You're shooting into empty waters. Either that or you already hit that spot,
+       no need to beat a dead horse! Try again."
       user_fires
       end
     end
@@ -168,19 +177,23 @@ class Game
     
       if target_cell.ship
         if target_cell.ship.sunk?
-          puts "CPU fires at #{target_coordinate} and sinks your #{target_cell.ship.name}!"
+          puts "I'm firing at #{target_coordinate} and sunk your #{target_cell.ship.name}!"
         else
-          puts "CPU fires at #{target_coordinate} and hits your ship!"
+          puts "I just fired at #{target_coordinate} and I hit your ship, haha!"
         end
       else
-        puts "CPU fires at #{target_coordinate} and misses."
+        puts "I'm firing at #{target_coordinate}, crap I missed."
       end
     end
 
     def turn_results
+      puts ""
       puts "========PLAYER BOARD========"
+      puts ""
       puts @user_board.board_render(true)
+      puts ""
       puts "========COMPUTER BOARD========"
+      puts ""
       puts @cpu_board.board_render
     end
 
@@ -196,13 +209,18 @@ class Game
       end
      
       if @cpu_board.all_ships_sunk?
+        puts ""
         puts "========PLAYER BOARD========"
+        puts ""
         puts @user_board.board_render
+        puts ""
         puts "========COMPUTER BOARD========"
+        puts ""
         puts @cpu_board.board_render
-        puts "Congratulations! You have won the game!"
+        puts ""
+        puts "Congratulations! You sank all of my ships."
       else
-        puts "Game over! The CPU has won!"
+        puts "Game over! I'm the victor!"
       end
     end
     
@@ -214,17 +232,17 @@ class Game
     def play_again?
       loop do
         puts "Would you like to return to the Main Menu?"
-        puts "Please enter 'Y' or 'N'"
+        puts "Enter 'Y'...If you dare, or 'N' if you're a chicken!"
         user_input = gets.chomp.upcase
     
       if user_input == "Y"
         start_game
         break
       elsif user_input == "N"
-        puts "Thanks for playing! Goodbye!"
+        puts "Thanks for the match, see you soon!"
         break
       else
-        puts "Invalid input. Please enter 'Y' to play again or 'N' to quit."
+        puts "Invalid input, haven't we been over this? Please enter 'Y' to play again or 'N' to quit."
       end
     end
   end
