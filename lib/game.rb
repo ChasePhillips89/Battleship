@@ -80,7 +80,9 @@ class Game
     puts "I have laid out my ships on the grid.
           You now need to lay out your two ships.
           The Cruiser is three units long and the Submarine is two units long."
+          puts ""
           puts "========PLAYER BOARD========"
+          puts ""
     puts @user_board.board_render
     puts "Please enter the coordinates for your Cruiser"
   end 
@@ -92,7 +94,9 @@ class Game
     if @user_board.valid_placement?(ship, user_coords)
       @user_board.place(ship, user_coords)
       puts "Successfully placed your #{ship.name}!"
+      puts ""
       puts "========PLAYER BOARD========"
+      puts ""
       puts @user_board.board_render(true)
     else
       puts "You're lost at sea, try placing your ship in charted waters!"
@@ -111,7 +115,9 @@ class Game
     if @user_board.valid_placement?(ship, user_coords)
       @user_board.place(ship, user_coords)
       puts "Successfully placed your #{ship.name}!"
+      puts ""
       puts "========PLAYER BOARD========"
+      puts ""
       puts @user_board.board_render(true)
     else
       puts "You're lost at sea, try placing your ship in charted waters!"
@@ -124,6 +130,7 @@ class Game
     puts ""
     puts ""
     puts "========PLAYER BOARD========"
+    puts ""
     puts @user_board.board_render(true)
     puts ""
     puts ""
@@ -132,6 +139,7 @@ class Game
     puts ""
     puts ""
     puts "========COMPUTER BOARD========"
+    puts ""
     puts @cpu_board.board_render
   end
 
@@ -179,9 +187,13 @@ class Game
     end
 
     def turn_results
+      puts ""
       puts "========PLAYER BOARD========"
+      puts ""
       puts @user_board.board_render(true)
+      puts ""
       puts "========COMPUTER BOARD========"
+      puts ""
       puts @cpu_board.board_render
     end
 
@@ -197,10 +209,15 @@ class Game
       end
      
       if @cpu_board.all_ships_sunk?
+        puts ""
         puts "========PLAYER BOARD========"
+        puts ""
         puts @user_board.board_render
+        puts ""
         puts "========COMPUTER BOARD========"
+        puts ""
         puts @cpu_board.board_render
+        puts ""
         puts "Congratulations! You sank all of my ships."
       else
         puts "Game over! I'm the victor!"
