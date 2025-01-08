@@ -47,12 +47,14 @@ class Game
     puts ""
 
     user_input = gets.chomp.upcase
-    if user_input == "p"
+    if user_input == "P"
       puts "Captains, to your BATTLE STATIONS!"
-    elsif user_input == "q"
+    elsif user_input == "Q"
       puts "Later Loser!"
+      exit
     else
       puts "Mind your P's and Q's...please enter 'P' or 'Q'"
+      main_menu
     end
   end
 
